@@ -1,11 +1,16 @@
 {
   "name": "betworks-msg-app-client",
   "version": "0.0.1",
+  "description": "messaging app front end angular app",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clyde-hoang/betworks-msg-app-client.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
     "build": "ng build",
-    "build-test": "ng build --configuration=test",
     "build-prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
