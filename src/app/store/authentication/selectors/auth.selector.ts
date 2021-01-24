@@ -10,5 +10,5 @@ export const getAuthIsLoggedIn = createSelector(getAuthState, (state: fromReduce
 export const getAuthUser = createSelector(getAuthState, (state: fromReducer.AuthState) => state.authenticatedUser);
 export const getAuthToken = createSelector(
   getAuthState,
-  (state: fromReducer.AuthState) => state.token || sessionStorage.getItem(environment.AUTH.TOKEN_HEADER_NAME)
+  (state: fromReducer.AuthState) => state.token || localStorage.getItem(environment.AUTH.TOKEN_HEADER_NAME)
 );

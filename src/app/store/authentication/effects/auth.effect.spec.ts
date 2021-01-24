@@ -37,7 +37,7 @@ describe('AuthEffects', () => {
   });
 
   beforeEach(() => {
-    actions$ = <TestActions>TestBed.inject(Actions);
+    actions$ = (TestBed.inject(Actions) as TestActions);
     service  = TestBed.inject(AuthService);
     effects  = TestBed.inject(AuthEffects);
 

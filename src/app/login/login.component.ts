@@ -13,25 +13,23 @@ import { Subject } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
   error = '';
-
-  unsubscribe$: Subject<void> = new Subject();
 
   constructor(
     private store: Store<AppState>,
     private formBuilder: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private authenticationService: AuthenticationService) {
+    private route: ActivatedRoute,
+    private router: Router) {
     // redirect to home if already logged in
-    /*if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
-    }*/
+    this.store.pipe(select(fromStore.getAuthIsLoggedIn), skip(1), take(1)).subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -39,14 +37,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
   }
 
   onSubmit(): void {
@@ -62,11 +52,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.store.dispatch(new fromStore.LoginAction({username, password}));
     this.store.pipe(select(fromStore.getAuthIsLoggedIn), skip(1), take(1)).subscribe(isLoggedIn => {
       if (isLoggedIn) {
-        this.router.navigate([this.returnUrl]);
-      } else {
+        this.router.navigate(['/']);
+      }
+    });
+
+    this.store.pipe(select(fromStore.getAuthError), skip(1), take(1)).subscribe(error => {
+      if (error) {
         this.submitted = false;
-        //this.error = error;
         this.loading = false;
+        this.error = 'Invalid Username/Password';
       }
     });
   }

@@ -14,23 +14,22 @@ import { AppComponent } from './app.component';
 import { ChatInboxComponent } from './chat-inbox/chat-inbox.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { JwtInterceptor } from './util/jwt.interceptor';
+import { ErrorInterceptor } from './util/error.interceptor';
 
-import {
-  JwtInterceptor,
-  ErrorInterceptor
-} from './services/authentication';
 import {
   AuthenticationService,
   ChatService,
   UserService
-} from "./services";
+} from './services';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatInboxComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ChatInboxComponent
   ],
   imports: [
     BrowserModule,

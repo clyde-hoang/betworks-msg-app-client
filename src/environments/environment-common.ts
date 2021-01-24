@@ -1,8 +1,7 @@
 export const environmentCommon = {
   AUTH: {
     BASE_SERVICE_PATH: 'users/authenticate',
-    TOKEN_HEADER_NAME: 'token',
-    USERID_NAME: 'userId',
+    TOKEN_HEADER_NAME: 'uit'
   },
   USERS: {
     BASE_SERVICE_PATH: 'users',

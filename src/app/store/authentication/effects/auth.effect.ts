@@ -3,15 +3,19 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import {catchError, map, mergeMap, switchMap, tap} from 'rxjs/operators';
 import { User } from '../../../models';
 import { AuthenticationService } from '../../../services';
 import * as fromActions from '../actions/auth.action';
-import { environment } from '../../../../environments/environment';
+import {LOGOUT, LogoutSuccessAction} from '../actions/auth.action';
 
 @Injectable()
 export class AuthEffects {
-  // Listen for the 'LOGIN' action
+  constructor(private actions$: Actions,
+              private router: Router,
+              private authenticationService: AuthenticationService
+  ) {}
+
   @Effect()
   login$ = this.actions$.pipe(
     ofType(fromActions.LOGIN),
@@ -29,23 +33,23 @@ export class AuthEffects {
     )
   );
 
-  private loginSuccessHandler(user: User) {
-    sessionStorage.setItem(environment.AUTH.USERID_NAME, `${user.id}`);
+  @Effect()
+  logout$ = this.actions$.pipe(
+    ofType(fromActions.LOGOUT),
+    switchMap(this.logoutHandler.bind(this)),
+    tap(() => this.router.navigate(['/login']))
+  );
 
+  private loginSuccessHandler(user: User) {
     return [
       new fromActions.LoginSuccessfulAction({ token: user.token }),
       new fromActions.UpdateAuthenticatedUser(user)
     ];
   }
 
-  constructor(private actions$: Actions,
-              private router: Router,
-              private authenticationService: AuthenticationService
-  ) {
-    this.actions$
-      .pipe(ofType(fromActions.LOGIN_ERROR, fromActions.LOGOUT_SUCCESSFUL))
-      .subscribe(() => {
-        this.router.navigate(['/login']);
-      });
+  private logoutHandler() {
+    return [
+      new fromActions.LogoutSuccessAction()
+    ];
   }
 }

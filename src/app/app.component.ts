@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 
-import { AuthenticationService } from './services';
-import { User } from './models';
+import {User} from './models';
+import {select, Store} from '@ngrx/store';
+import {AppState} from './shared/appState';
+import * as fromStore from './store';
 
 @Component({
   selector: 'app-root',
@@ -12,15 +14,11 @@ import { User } from './models';
 export class AppComponent {
   currentUser: User;
 
-  constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService
-  ) {
-    // this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  constructor(private store: Store<AppState>) {
+    this.store.pipe(select(fromStore.getAuthUser)).subscribe(x => this.currentUser = x);
   }
 
-  logout() {
-    //this.authenticationService.logout();
-    //this.router.navigate(['/login']);
+  logout(): void {
+    this.store.dispatch(new fromStore.LogoutAction());
   }
 }

@@ -1,13 +1,12 @@
-<!-- nav -->
-<!--<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
-  <div class="navbar-nav">
-    <a class="nav-item nav-link" routerLink="/">Home</a>
-    <a class="nav-item nav-link" (click)="logout()">Logout</a>
-  </div>
-  <div class="app-container">
-    <router-outlet></router-outlet>
-  </div>
-</nav>-->
 <div class="app-container">
+  <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+    <div class="navbar-nav">
+      <a class="navbar-brand" href="#">
+        {{currentUser.username}} - {{currentUser.firstName + " " + currentUser.lastName}}
+      </a>
+      <a class="nav-item nav-link" routerLink="/">Home</a>
+      <a class="nav-item nav-link" href="#" (click)="logout()">Logout</a>
+    </div>
+  </nav>
   <router-outlet></router-outlet>
 </div>

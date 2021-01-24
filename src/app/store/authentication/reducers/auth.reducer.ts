@@ -27,6 +27,7 @@ export function authReducer(state: AuthState = defaultAuthState, action: fromAct
     }
 
     case fromActions.LOGIN_SUCCESSFUL: {
+      localStorage.setItem(environment.AUTH.TOKEN_HEADER_NAME, action.payload.token);
       return { ...state, isLoggedIn: true, token: action.payload.token, loading: false, loaded: true, error: null };
     }
 
@@ -35,8 +36,8 @@ export function authReducer(state: AuthState = defaultAuthState, action: fromAct
     }
 
     case fromActions.LOGOUT_SUCCESSFUL: {
-      sessionStorage.removeItem(environment.AUTH.TOKEN_HEADER_NAME);
-      sessionStorage.removeItem(environment.AUTH.USERID_NAME);
+      localStorage.removeItem(environment.AUTH.TOKEN_HEADER_NAME);
+      location.reload(true);
       return { ...defaultAuthState };
     }
 

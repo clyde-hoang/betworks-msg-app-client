@@ -29,7 +29,7 @@ export class LoginErrorAction extends PayloadAction<{ error: any }> {
 export class LogoutAction implements Action {
   readonly type = LOGOUT;
 }
-export class LogoutSuccessfulAction implements Action {
+export class LogoutSuccessAction implements Action {
   readonly type = LOGOUT_SUCCESSFUL;
 }
 
@@ -43,6 +43,6 @@ export class UpdateAuthToken extends PayloadAction<string> {
 
 export type AuthAction =
   | LoginAction                | LoginSuccessfulAction             | LoginErrorAction
-  | LogoutAction               | LogoutSuccessfulAction
+  | LogoutAction               | LogoutSuccessAction
   | UpdateAuthenticatedUser
   | UpdateAuthToken;

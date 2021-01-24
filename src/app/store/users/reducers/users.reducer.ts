@@ -27,12 +27,12 @@ export function usersReducer(state: UsersState = defaultUsersState, action: from
 
     case fromActions.GET_USER_CONTACTS_SUCCESSFUL: {
       const contacts = action.payload;
-      return { ...state, loading: false, loaded: true, error: null, contacts: contacts };
+      return { ...state, loading: false, loaded: true, error: null, contacts };
     }
 
     case fromActions.GET_MESSAGE_HISTORY_SUCCESSFUL: {
       const messages = action.payload;
-      return { ...state, loading: false, loaded: true, error: null, messages: messages };
+      return { ...state, loading: false, loaded: true, error: null, messages };
     }
 
     case fromActions.GET_USER_CONTACTS_ERROR:

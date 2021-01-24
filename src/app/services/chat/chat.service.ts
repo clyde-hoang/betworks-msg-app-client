@@ -3,7 +3,7 @@ import { environment } from '../../../environments/environment';
 import {io} from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { Message } from '../../models';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ChatService {
@@ -36,7 +36,7 @@ export class ChatService {
     return new Observable((observer) => {
       this.socket.on(userId.toString(), (message) => {
         observer.next(message);
-        //observer.complete();
+        // observer.complete();
       });
     });
   }
