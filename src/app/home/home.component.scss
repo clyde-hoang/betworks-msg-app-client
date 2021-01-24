@@ -108,6 +108,7 @@ img {
 .chat_people {
   overflow: hidden;
   clear: both;
+  cursor: pointer;
 }
 
 .chat_list {
@@ -118,7 +119,6 @@ img {
 
 .inbox_chat {
   height: 550px;
-  overflow-y: scroll;
 }
 
 .active_chat {
@@ -162,6 +162,7 @@ img {
   float: left;
   padding: 30px 15px 0 25px;
   width: 60%;
+  overflow-y: scroll;
 }
 
 .sent_msg p {
@@ -201,7 +202,7 @@ img {
 .msg_send_btn {
   background: #05728f none repeat scroll 0 0;
   border: medium none;
-  border-radius: 50%;
+  border-radius: 10%;
   color: #fff;
   cursor: pointer;
   font-size: 17px;
@@ -209,7 +210,7 @@ img {
   position: absolute;
   right: 0;
   top: 11px;
-  width: 33px;
+  width: 60px;
 }
 
 .messaging {

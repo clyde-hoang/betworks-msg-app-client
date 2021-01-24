@@ -39,7 +39,8 @@ import {
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot({
-      auth: fromStore.authReducer
+      auth: fromStore.authReducer,
+      user: fromStore.usersReducer
     }),
     EffectsModule.forRoot([...fromStore.featureEffects]),
     StoreDevtoolsModule.instrument({

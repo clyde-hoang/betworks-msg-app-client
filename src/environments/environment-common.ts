@@ -5,7 +5,8 @@ export const environmentCommon = {
     USERID_NAME: 'userId',
   },
   USERS: {
-    BASE_SERVICE_PATH: 'users'
+    BASE_SERVICE_PATH: 'users',
+    CONTACTS: 'contacts'
   },
   MESSAGES: {
     BASE_SERVICE_PATH: 'messages'

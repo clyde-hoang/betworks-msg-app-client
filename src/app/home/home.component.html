@@ -1,40 +1,24 @@
 <!-- Toolbar -->
-<div class="content" role="main">
-  This is the main page
-
-  <div *ngFor="let msg of messages">
-    {{msg}}
-  </div>
-
-  <input [(ngModel)]="message" />
-  <button (click)="sendMessage()">Send</button>
-
-  <!--
-
-  <div *ngIf="channel" class="container">
-    <h3 class=" text-center">Stream Messaging</h3>
+<div class="content p-5" role="main">
+  <div class="container">
     <div class="messaging">
       <div class="inbox_msg">
         <div class="inbox_people">
           <div class="headind_srch">
             <div class="channel_heading">
-              <h4>Channels</h4>
+              <h4>Contacts</h4>
             </div>
           </div>
           <div class="inbox_chat">
-            <div class="channels" *ngFor="let channel of channelList">
-              <div class="chat_list">
+            <div class="channels" *ngFor="let contact of contactsList">
+              <div class="chat_list" (click)="selectContact(contact)">
                 <div class="chat_people">
                   <div class="chat_ib">
                     <h5>
-                      {{ channel.data.name }}
+                      {{ contact.username }}
                     </h5>
                     <p>
-                      {{
-                      channel.state.messages[
-                      channel.state.messages.length - 1
-                        ].text
-                      }}
+                      {{ contact.firstName + " " + contact.lastName }}
                     </p>
                   </div>
                 </div>
@@ -43,11 +27,16 @@
           </div>
         </div>
         <div class="mesgs">
+          <div class="headind_srch">
+            <div class="channel_heading">
+              <h4>{{currentContact? currentContact.username : ''}}</h4>
+            </div>
+          </div>
           <div class="msg_history">
-            <li class="message" *ngFor="let message of messages">
+            <li class="message" *ngFor="let message of messagesList">
               <div
                 *ngIf="
-                  message.user.id !== currentUser.me.id;
+                  message.to !== currentUser.id;
                   then incoming_msg;
                   else outgoing_msg
                 "
@@ -68,6 +57,12 @@
                 </div>
               </ng-template>
               <ng-template #outgoing_msg>
+                <div class="incoming_msg_img float-right">
+                  <img
+                    src="https://i.imgur.com/k2PZLZa.png"
+                    alt="User avatar"
+                  />
+                </div>
                 <div class="outgoing_msg">
                   <div class="sent_msg">
                     <p>{{ message.text }}</p>
@@ -77,7 +72,7 @@
             </li>
           </div>
           <div class="type_msg">
-            <form class="input_msg_write" (ngSubmit)="sendMessage()">
+            <form class="input_msg_write">
               <input
                 type="text"
                 class="write_msg"
@@ -85,13 +80,13 @@
                 name="newMessage"
                 [(ngModel)]="newMessage"
               />
-              <button class="msg_send_btn" type="button">
-                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+              <button class="msg_send_btn" type="button" (click)="sendMessage()">
+                Send
               </button>
             </form>
           </div>
         </div>
       </div>
     </div>
-  </div>-->
+  </div>
 </div>

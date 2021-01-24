@@ -9,6 +9,14 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get<User[]>(`${environment.REST_URL}/${environment.REST_VERSION}/${environment.USERS.BASE_SERVICE_PATH}`);
+    return this.http.get<User[]>(`${this.constructBaseUrl()}`);
+  }
+
+  getContacts(userId: number) {
+    return this.http.get<User[]>(`${this.constructBaseUrl()}/${userId}/${environment.USERS.CONTACTS}`);
+  }
+
+  private constructBaseUrl() {
+    return `${environment.REST_URL}/${environment.REST_VERSION}/${environment.USERS.BASE_SERVICE_PATH}`;
   }
 }
